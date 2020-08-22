@@ -36,5 +36,5 @@ public/js has
 Database migration file is found in databse/migraton/2020_08_20_000000_create_victr_table
     
     
-THese are just the basic funcitonality. I didn't include theming/styling, comments/notes, elegant exception, etc due to time limitations. 
+THese are just the basic funcitonality. I didn't include theming/styling, comments/notes, a lot of time on performance/usabliity/bells/whistles/elegant exception, etc due to time limitations. 
     

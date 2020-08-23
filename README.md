@@ -1,61 +1,31 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Used Laravel 7.25.0, MySQL 8, PHP 7.3.12, JQuery 2.5.1, jsGrid 1.5.3, and Guzzle 7.0
+2. I ran the Laravel PHP server via the artisan command (php artisan serve) to create this instead of using Apache, Nginx, etc.
+3. The application is accessible by http://127.0.0.1:8000/
+4. YOu can access the API (that populates the grid) directly http://127.0.0.1:8000/api/github_repos/all
+5. The architecture/files are as follows:
+    app/Http/Controllers/Victr.php
+      had 4 methods: 
+      --delete which truncates the database table when called
+      --retrieve which gets the data out of the database table when called
+      --store which puts the data in the database table when called
+      --index which
+        a) gets the latest data from github via the github query
+        b) truncates the local database table data
+        c) stores the recently retrieved data from github in the database table
+        d) retrieves the data from the database table
+        e) returns the data back to the viewer/blade for jsgrid to use
+    resources/views/victr.blade.php
+       --the blade where the js/css/html is called/created to present the data from the database
+    public/js/jquery-3.5.1.min
+       --downloaded so the app works without internet connectivity
+    public/js/victr_listing.js
+       --application js file that is called from the viewer/blade, gets the database data from the api/database, returns it to be formatted in the div as a grid. 
+    database/migrations/2020_08_20_000000_create_victr_table
+       --what creates the table to store the data from github which is also called to show on the view
+    routes/api/
+       --api to access the database table data directly
+    routes/web
+       --where the blade is defined which the server loads when you access the root page
+       
+       
+Due to time limitations I was not able to work a lot on usability, themeing, bells/whistles, etc. I know the database pwd is in the file. I left it there as an example for you. Of course that would never be done on an actual project. This database is local host. I didn't know what you meant by "click through to the details" so I just hyperlinked the row's repo url to github. 
